@@ -17,8 +17,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Development
-        "https://*.netlify.app",  # Netlify deployment
-        "https://*.onrender.com", # Render deployment
+        "https://sales-insights.netlify.app",  # Netlify production
+        "https://sales-insights-linkedin-outreach.onrender.com", # Render production
     ],
     allow_credentials=True,
     allow_methods=["*"],
