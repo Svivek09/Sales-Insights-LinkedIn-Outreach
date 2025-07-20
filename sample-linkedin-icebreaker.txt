@@ -1,0 +1,76 @@
+SAMPLE LINKEDIN BIO:
+Sarah Johnson
+VP of Product at TechCorp
+San Francisco Bay Area
+
+Passionate product leader with 8+ years of experience building and scaling SaaS products. Currently leading product strategy at TechCorp, a B2B software company focused on helping teams collaborate more effectively.
+
+Previously:
+- Senior Product Manager at Slack (3 years)
+- Product Manager at Asana (2 years)
+- Started career in consulting at McKinsey
+
+Key achievements:
+- Led the launch of TechCorp's flagship collaboration platform
+- Grew user base from 0 to 50,000+ active users in 18 months
+- Reduced customer churn by 40% through improved onboarding
+- Built and managed a team of 12 product managers and designers
+
+Interested in: Product strategy, team collaboration, user experience, data-driven decision making, and building products that solve real problems.
+
+Education: Stanford MBA, UC Berkeley Computer Science
+
+---
+
+SAMPLE PITCH DECK:
+Slide 1: Title
+"CollabFlow - The Future of Team Collaboration"
+Transform how teams work together with AI-powered insights
+
+Slide 2: Problem
+- Teams waste 20+ hours per week on inefficient communication
+- 60% of projects fail due to poor collaboration
+- Existing tools are fragmented and don't provide actionable insights
+
+Slide 3: Solution
+CollabFlow is an all-in-one collaboration platform that:
+- Centralizes team communication in one place
+- Uses AI to identify collaboration bottlenecks
+- Provides actionable insights to improve team productivity
+- Integrates with existing tools (Slack, Teams, Zoom)
+
+Slide 4: Market Opportunity
+- $15B collaboration software market
+- Growing 15% annually
+- 500M+ knowledge workers globally
+- Target: Mid-market companies (100-1000 employees)
+
+Slide 5: Product Features
+- Real-time collaboration analytics
+- AI-powered meeting insights
+- Automated task management
+- Advanced search and knowledge base
+- Mobile-first design
+
+Slide 6: Business Model
+- SaaS subscription: $15/user/month
+- Enterprise: Custom pricing
+- Target: $50M ARR in 3 years
+- 80% gross margins
+
+Slide 7: Traction
+- 2,000+ active users
+- $500K ARR
+- 15% month-over-month growth
+- 95% customer satisfaction score
+
+Slide 8: Team
+- CEO: Former VP at Slack
+- CTO: Ex-Google engineer
+- CPO: Former Asana product lead
+- 15 employees total
+
+Slide 9: Funding Ask
+- Raising $5M Series A
+- Use of funds: Product development (40%), Sales (30%), Marketing (20%), Operations (10%)
+- Valuation: $25M pre-money 
