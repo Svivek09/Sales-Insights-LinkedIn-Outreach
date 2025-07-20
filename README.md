@@ -95,6 +95,21 @@ SUPABASE_ANON_KEY=your_supabase_anon_key
 GOOGLE_API_KEY=your_google_gemini_api_key
 ```
 
+#### Frontend (Environment Variables)
+For local development, create a `.env.local` file in the root directory:
+```bash
+# Create .env.local file
+touch .env.local
+```
+
+Add the following to `.env.local`:
+```env
+# Backend API URL for local development
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+**Note**: For production deployment, these variables are set in the deployment platform (Netlify) rather than in local files.
+
 ### 4. Start the Development Servers
 
 #### Terminal 1 - Backend
