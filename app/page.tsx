@@ -20,7 +20,7 @@ interface Transcript {
   company_name: string;
   attendees: string;
   date: string;
-  transcript_content: string;
+  transcript_text: string;
   analysis: string;
   created_at: string;
 }
@@ -29,7 +29,7 @@ interface LinkedInIcebreaker {
   id: string;
   linkedin_bio: string;
   pitch_deck: string;
-  analysis: string;
+  icebreaker_analysis: string;
   created_at: string;
 }
 
@@ -44,7 +44,7 @@ export default function Home() {
     company_name: '',
     attendees: '',
     date: '',
-    transcript_content: ''
+    transcript_text: ''
   });
   
   // LinkedIn icebreaker form state
@@ -82,12 +82,12 @@ export default function Home() {
     
     try {
       await submitTranscript(transcriptForm);
-      setTranscriptForm({
-        company_name: '',
-        attendees: '',
-        date: '',
-        transcript_content: ''
-      });
+          setTranscriptForm({
+      company_name: '',
+      attendees: '',
+      date: '',
+      transcript_text: ''
+    });
       fetchTranscripts();
     } catch (error) {
       console.error('Error submitting transcript:', error);
@@ -182,11 +182,11 @@ export default function Home() {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="transcript_content">Transcript Content</Label>
-                    <Textarea
-                      id="transcript_content"
-                      value={transcriptForm.transcript_content}
-                      onChange={(e) => setTranscriptForm(prev => ({ ...prev, transcript_content: e.target.value }))}
+                                            <Label htmlFor="transcript_text">Transcript Content</Label>
+                        <Textarea
+                          id="transcript_text"
+                          value={transcriptForm.transcript_text}
+                          onChange={(e) => setTranscriptForm(prev => ({ ...prev, transcript_text: e.target.value }))}
                       placeholder="Paste your meeting transcript here..."
                       rows={8}
                       required
@@ -229,7 +229,7 @@ export default function Home() {
                     </CardHeader>
                     <CardContent>
                       <div className="prose max-w-none">
-                        <div dangerouslySetInnerHTML={{ __html: transcript.analysis.replace(/\n/g, '<br/>') }} />
+                        <div dangerouslySetInnerHTML={{ __html: transcript.analysis?.replace(/\n/g, '<br/>') || 'No analysis available' }} />
                       </div>
                     </CardContent>
                   </Card>
@@ -307,7 +307,7 @@ export default function Home() {
                     </CardHeader>
                     <CardContent>
                       <div className="prose max-w-none">
-                        <div dangerouslySetInnerHTML={{ __html: icebreaker.analysis.replace(/\n/g, '<br/>') }} />
+                        <div dangerouslySetInnerHTML={{ __html: icebreaker.icebreaker_analysis?.replace(/\n/g, '<br/>') || 'No analysis available' }} />
                       </div>
                     </CardContent>
                   </Card>
