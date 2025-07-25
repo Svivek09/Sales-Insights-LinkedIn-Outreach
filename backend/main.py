@@ -7,8 +7,6 @@ from datetime import datetime
 import uuid
 from supabase import create_client, Client
 from dotenv import load_dotenv
-from arq import create_pool
-from arq.connections import RedisSettings
 
 load_dotenv()
 
