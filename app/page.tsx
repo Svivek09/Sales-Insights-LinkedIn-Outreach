@@ -8,11 +8,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, FileText, MessageSquare } from 'lucide-react';
-import { 
-  submitTranscript, 
-  getTranscripts, 
-  submitLinkedInIcebreaker, 
-  getLinkedInIcebreakers 
+import {
+  submitTranscript,
+  getTranscripts,
+  submitLinkedInIcebreaker,
+  getLinkedInIcebreakers,
+  getTranscriptJobStatus,
+  getIcebreakerJobStatus
 } from '@/lib/api';
 
 interface Transcript {
@@ -20,7 +22,7 @@ interface Transcript {
   company_name: string;
   attendees: string;
   date: string;
-  transcript_content: string;
+  transcript_text: string; // <-- Fix: match backend
   analysis: string;
   created_at: string;
 }
@@ -29,11 +31,11 @@ interface LinkedInIcebreaker {
   id: string;
   linkedin_bio: string;
   pitch_deck: string;
-  analysis: string;
+  icebreaker_analysis: string;
   created_at: string;
 }
 
-export default function Home() {
+export default function Page() {
   const [transcripts, setTranscripts] = useState<Transcript[]>([]);
   const [icebreakers, setIcebreakers] = useState<LinkedInIcebreaker[]>([]);
   const [loading, setLoading] = useState(false);
@@ -44,7 +46,7 @@ export default function Home() {
     company_name: '',
     attendees: '',
     date: '',
-    transcript_content: ''
+    transcript_text: ''
   });
   
   // LinkedIn icebreaker form state
@@ -52,6 +54,11 @@ export default function Home() {
     linkedin_bio: '',
     pitch_deck: ''
   });
+
+  const [transcriptJobStatus, setTranscriptJobStatus] = useState<string | null>(null);
+  const [icebreakerJobStatus, setIcebreakerJobStatus] = useState<string | null>(null);
+  const [transcriptJobResult, setTranscriptJobResult] = useState<string | null>(null);
+  const [icebreakerJobResult, setIcebreakerJobResult] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTranscripts();
@@ -62,6 +69,7 @@ export default function Home() {
     try {
       const data = await getTranscripts();
       setTranscripts(data);
+      console.log('Fetched transcripts:', data); // Debug log
     } catch (error) {
       console.error('Error fetching transcripts:', error);
     }
@@ -70,6 +78,7 @@ export default function Home() {
   const fetchIcebreakers = async () => {
     try {
       const data = await getLinkedInIcebreakers();
+      console.log('Fetched icebreakers:', data); // Debug log
       setIcebreakers(data);
     } catch (error) {
       console.error('Error fetching icebreakers:', error);
@@ -79,38 +88,78 @@ export default function Home() {
   const handleTranscriptSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+    setTranscriptJobStatus('pending');
+    setTranscriptJobResult(null);
     try {
-      await submitTranscript(transcriptForm);
+      const { job_id } = await submitTranscript(transcriptForm);
+      // Poll for job status
+      let status = 'pending';
+      let result = null;
+      while (status !== 'success' && status !== 'failure') {
+        const res = await getTranscriptJobStatus(job_id);
+        status = res.status;
+        setTranscriptJobStatus(status);
+        if (status === 'success') {
+          result = res.result;
+          setTranscriptJobResult(result);
+        } else if (status === 'failure') {
+          setTranscriptJobResult('Failed to analyze transcript.');
+        } else {
+          await new Promise(r => setTimeout(r, 2000));
+        }
+      }
       setTranscriptForm({
         company_name: '',
         attendees: '',
         date: '',
-        transcript_content: ''
+        transcript_text: ''
       });
       fetchTranscripts();
     } catch (error) {
+      setTranscriptJobResult('Error submitting transcript.');
       console.error('Error submitting transcript:', error);
     } finally {
       setLoading(false);
+      setTranscriptJobStatus(null);
     }
   };
 
   const handleIcebreakerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+    setIcebreakerJobStatus('pending');
+    setIcebreakerJobResult(null);
     try {
-      await submitLinkedInIcebreaker(icebreakerForm);
+      const { job_id } = await submitLinkedInIcebreaker(icebreakerForm);
+      // Poll for job status
+      let status = 'pending';
+      let result = null;
+      while (status !== 'success' && status !== 'failure') {
+        const res = await getIcebreakerJobStatus(job_id);
+        status = res.status;
+        setIcebreakerJobStatus(status);
+        if (status === 'success') {
+          result = res.result;
+          setIcebreakerJobResult(result);
+        } else if (status === 'failure') {
+          setIcebreakerJobResult('Failed to generate icebreaker.');
+        } else {
+          await new Promise(r => setTimeout(r, 2000));
+        }
+      }
+      // Add a delay to ensure Supabase is updated before fetching
+      await new Promise(r => setTimeout(r, 1500));
       setIcebreakerForm({
         linkedin_bio: '',
         pitch_deck: ''
       });
       fetchIcebreakers();
     } catch (error) {
+      setIcebreakerJobResult('Error submitting icebreaker.');
       console.error('Error submitting icebreaker:', error);
     } finally {
       setLoading(false);
+      setIcebreakerJobStatus(null);
     }
   };
 
@@ -119,10 +168,10 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Business Intelligence Suite
+            Transcript & Icebreaker Generator
           </h1>
           <p className="text-lg text-gray-600">
-            Analyze meeting transcripts and generate LinkedIn icebreakers with AI
+            Upload a transcript or generate a LinkedIn icebreaker.
           </p>
         </div>
 
@@ -182,11 +231,11 @@ export default function Home() {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="transcript_content">Transcript Content</Label>
+                    <Label htmlFor="transcript_text">Transcript Content</Label>
                     <Textarea
-                      id="transcript_content"
-                      value={transcriptForm.transcript_content}
-                      onChange={(e) => setTranscriptForm(prev => ({ ...prev, transcript_content: e.target.value }))}
+                      id="transcript_text"
+                      value={transcriptForm.transcript_text}
+                      onChange={(e) => setTranscriptForm(prev => ({ ...prev, transcript_text: e.target.value }))}
                       placeholder="Paste your meeting transcript here..."
                       rows={8}
                       required
@@ -196,13 +245,23 @@ export default function Home() {
                     {loading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Analyzing...
+                        {transcriptJobStatus === 'pending' || transcriptJobStatus === 'started' ? 'Analyzing...' : 'Finalizing...'}
                       </>
                     ) : (
                       'Analyze Transcript'
                     )}
                   </Button>
                 </form>
+                {transcriptJobStatus && (
+                  <div className="mt-4 text-center">
+                    <p className="text-gray-600">Status: {transcriptJobStatus}</p>
+                    {transcriptJobResult && (
+                      <div className="prose max-w-none mt-2">
+                        <div dangerouslySetInnerHTML={{ __html: transcriptJobResult.replace(/\n/g, '<br/>') }} />
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -216,24 +275,30 @@ export default function Home() {
                   </CardContent>
                 </Card>
               ) : (
-                transcripts.map((transcript) => (
-                  <Card key={transcript.id}>
-                    <CardHeader>
-                      <CardTitle className="flex justify-between items-start">
-                        <span>{transcript.company_name}</span>
-                        <span className="text-sm font-normal text-gray-500">{transcript.date}</span>
-                      </CardTitle>
-                      <CardDescription>
-                        Attendees: {transcript.attendees}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="prose max-w-none">
-                        <div dangerouslySetInnerHTML={{ __html: transcript.analysis.replace(/\n/g, '<br/>') }} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
+                transcripts.map((transcript) => {
+                  return (
+                    <Card key={transcript.id}>
+                      <CardHeader>
+                        <CardTitle className="flex justify-between items-start">
+                          <span>{transcript.company_name}</span>
+                          <span className="text-sm font-normal text-gray-500">{transcript.date}</span>
+                        </CardTitle>
+                        <CardDescription>
+                          Attendees: {transcript.attendees}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="mb-2 text-sm text-gray-700">
+                          <strong>Transcript:</strong>
+                          <div className="whitespace-pre-line">{transcript.transcript_text}</div>
+                        </div>
+                        <div className="prose max-w-none">
+                          <div dangerouslySetInnerHTML={{ __html: (transcript.analysis || "No analysis available.").replace(/\n/g, '<br/>') }} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })
               )}
             </div>
           </TabsContent>
@@ -275,13 +340,23 @@ export default function Home() {
                     {loading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Generating...
+                        {icebreakerJobStatus === 'pending' || icebreakerJobStatus === 'started' ? 'Generating...' : 'Finalizing...'}
                       </>
                     ) : (
                       'Generate Icebreaker'
                     )}
                   </Button>
                 </form>
+                {icebreakerJobStatus && (
+                  <div className="mt-4 text-center">
+                    <p className="text-gray-600">Status: {icebreakerJobStatus}</p>
+                    {icebreakerJobResult && (
+                      <div className="prose max-w-none mt-2">
+                        <div dangerouslySetInnerHTML={{ __html: icebreakerJobResult.replace(/\n/g, '<br/>') }} />
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -295,23 +370,27 @@ export default function Home() {
                   </CardContent>
                 </Card>
               ) : (
-                icebreakers.map((icebreaker) => (
-                  <Card key={icebreaker.id}>
-                    <CardHeader>
-                      <CardTitle className="flex justify-between items-start">
-                        <span>LinkedIn Icebreaker</span>
-                        <span className="text-sm font-normal text-gray-500">
-                          {new Date(icebreaker.created_at).toLocaleDateString()}
-                        </span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="prose max-w-none">
-                        <div dangerouslySetInnerHTML={{ __html: icebreaker.analysis.replace(/\n/g, '<br/>') }} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
+                <>
+                  {[...icebreakers]
+                    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+                    .map((icebreaker) => (
+                      <Card key={icebreaker.id}>
+                        <CardHeader>
+                          <CardTitle className="flex justify-between items-start">
+                            <span>{icebreaker.linkedin_bio.slice(0, 40)}{icebreaker.linkedin_bio.length > 40 ? '...' : ''}</span>
+                            <span className="text-sm font-normal text-gray-500">
+                              {new Date(icebreaker.created_at).toLocaleDateString()}
+                            </span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="prose max-w-none">
+                            <div dangerouslySetInnerHTML={{ __html: (icebreaker.icebreaker_analysis || "No analysis available.").replace(/\n/g, '<br/>') }} />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                </>
               )}
             </div>
           </TabsContent>

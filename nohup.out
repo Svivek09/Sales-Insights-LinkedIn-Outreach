@@ -1,0 +1,251 @@
+[2025-07-25 18:51:38,784: WARNING/MainProcess] 
+Setting ssl_cert_reqs=CERT_NONE when connecting to redis means that celery will not validate the identity of the redis broker when connecting. This leaves you vulnerable to man in the middle attacks.
+
+ 
+ -------------- celery@VINAYs-MacBook-Air.local v5.5.3 (immunity)
+--- ***** ----- 
+-- ******* ---- macOS-15.5-arm64-arm-64bit 2025-07-25 18:51:38
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         transcript_tasks:0x101213430
+- ** ---------- .> transport:   rediss://default:**@saving-starling-61093.upstash.io:6379//
+- ** ---------- .> results:     rediss://default:**@saving-starling-61093.upstash.io:6379/
+- *** --- * --- .> concurrency: 10 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . analyze_linkedin_icebreaker_task
+  . analyze_transcript_task
+
+[2025-07-25 18:51:39,621: INFO/MainProcess] Connected to rediss://default:**@saving-starling-61093.upstash.io:6379//
+[2025-07-25 18:51:39,840: INFO/MainProcess] mingle: searching for neighbors
+[2025-07-25 18:51:41,454: INFO/MainProcess] mingle: all alone
+[2025-07-25 18:51:42,780: INFO/MainProcess] celery@VINAYs-MacBook-Air.local ready.
+[2025-07-25 18:53:04,467: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[13fff247-43de-4eaf-9ea8-c1cb65db842a] received
+[2025-07-25 18:53:04,535: WARNING/ForkPoolWorker-8] /Users/vinay/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+[2025-07-25 18:53:11,638: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.1778e4ce-850a-4211-aa35-27c27cee9155 "HTTP/1.1 200 OK"
+[2025-07-25 18:53:11,920: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[13fff247-43de-4eaf-9ea8-c1cb65db842a] succeeded in 7.449480291s: 'Subject: From one collaboration enthusiast to another...
+
+Hi Sarah,
+
+I was really impressed by TechCorp\'s focus on helping teams collaborate more effectively, and your background at Slack and Asana certainly speaks for itself!  I noticed CollabFlow\'s pitch deck mentions teams wasting 20+ hours per week on inefficient communication – a stat that resonated deeply, especially having experienced similar challenges at [Your Company/Previous Company].  I\'m curious, with your experience at Slack, what are your thoughts on the biggest hurdles to truly seamless collaboration in the current landscape?
+
+Best,
+
+[Your Name]
+[Your Title/Company]
+
+
+**Why this works:**
+
+* **Personalized and specific:** Directly references her background and the pitch deck, showing you\'ve done your research.
+* **Focuses on shared interest:** Highlights collaboration as a common ground.
+* **Open-ended question:** Encourages a conversation, rather than a yes/no response.
+* **Positions you as a peer:** Framing the question based on her past...'
+[2025-07-25 18:54:26,726: INFO/MainProcess] Task analyze_transcript_task[3c065c7a-54e6-4a80-a065-c8918cda4c81] received
+[2025-07-25 18:54:38,716: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/transcripts?id=eq.31b3319c-6884-4ae4-a697-fbe02e15b130 "HTTP/1.1 200 OK"
+[2025-07-25 18:54:38,786: INFO/ForkPoolWorker-8] Task analyze_transcript_task[3c065c7a-54e6-4a80-a065-c8918cda4c81] succeeded in 12.058031999999997s: '**What went well:**
+
+- **Clear agenda and structure:** Sarah started the meeting by outlining the agenda (Q3 review and Q4 planning), which helped keep the discussion focused and productive.
+- **Concise Q3 performance updates:** Each team lead provided brief, impactful updates on Q3 achievements, highlighting key successes and quantifiable results (e.g., 25% increase in user acquisition).
+- **Alignment on Q4 priorities:** The team quickly aligned on three key focus areas for Q4: user engagement, market expansion, and funding preparation.
+- **Proactive suggestion generation:** Team members proactively suggested specific initiatives within each priority area (e.g., recommendation engine, onboarding flow improvement, target markets).
+- **Clear ownership and action items:**  Specific action items were assigned to individuals with clear deadlines (e.g., Mike creating a technical spec for the recommendation engine by next week).
+- **Inclusion of technical considerations:** Mike brought up the important point of...'
+[2025-07-25 18:57:26,855: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[88eb00e4-886c-443e-af5e-28d717d403fd] received
+[2025-07-25 18:57:32,203: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.e4009eef-e2b4-4efe-8e2f-b0f4bf93d782 "HTTP/1.1 200 OK"
+[2025-07-25 18:57:32,271: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[88eb00e4-886c-443e-af5e-28d717d403fd] succeeded in 5.413728125000034s: 'Subject: From one collaboration enthusiast to another...
+
+Hi Sarah,
+
+I was really impressed by TechCorp\'s focus on effective team collaboration – something I\'m incredibly passionate about as well. Your background at Slack and Asana, combined with your success scaling products like TechCorp\'s flagship platform, speaks volumes.
+
+I\'m reaching out because I noticed CollabFlow\'s pitch deck mentions tackling the very real problem of fragmented collaboration tools, and your LinkedIn profile highlights your interest in data-driven solutions.  Given your experience optimizing onboarding and reducing churn, I thought you might be interested in seeing how [Your Company/Product/Service – briefly describe it and how it relates to data-driven decision making or user experience in collaboration] could potentially complement CollabFlow\'s approach.
+
+Would you be open to a brief chat sometime next week?
+
+Best regards,
+
+[Your Name]
+[Your Title/Company]
+'
+[2025-07-25 19:00:26,153: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[a06ce249-4e74-4e05-9802-ee7af6539b57] received
+[2025-07-25 19:00:31,301: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.d860ea69-a16d-4518-96b1-b1b10d6aae52 "HTTP/1.1 200 OK"
+[2025-07-25 19:00:31,368: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[a06ce249-4e74-4e05-9802-ee7af6539b57] succeeded in 5.212864792000005s: 'Subject: Streamlining Collaboration - A Shared Passion
+
+Hi Sarah,
+
+I was really impressed by your background at Slack and Asana, especially your achievements in scaling products and reducing churn.  Given your experience and TechCorp\'s focus on improving team collaboration, I thought you might find CollabFlow\'s approach to solving collaboration bottlenecks with AI-powered insights particularly interesting.  We\'re tackling the very problems your bio highlights – creating products that solve real-world challenges in team collaboration.
+
+I saw that CollabFlow has already achieved impressive traction with 2,000+ active users.  Since you spearheaded a similar growth trajectory at TechCorp, I\'d love to get your perspective on how we can further optimize our growth strategy for mid-market companies.
+
+Would you be open to a quick chat sometime next week?
+
+Best regards,
+
+[Your Name]
+[Your Title/Company]
+'
+[2025-07-25 19:05:11,258: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[3cb30a63-3346-4f70-93c0-e2f388143ccf] received
+[2025-07-25 19:05:15,601: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.b8901913-3bb4-4d63-9457-38d5480c422d "HTTP/1.1 200 OK"
+[2025-07-25 19:05:15,670: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[3cb30a63-3346-4f70-93c0-e2f388143ccf] succeeded in 4.41122679099999s: 'Subject: Saw ExampleCorp is bringing AI to the masses - impressive!
+
+Hi Test,
+
+I came across ExampleCorp\'s pitch deck and was particularly struck by the "100% more AI" result – quite a feat! I\'m [Your Name] from [Your Company/Role], and we\'re [briefly describe what your company/you do, ideally relating it back to AI or ExampleCorp\'s target market, e.g., "working with companies leveraging AI in the X space," or "exploring AI solutions for Y," or "helping scale innovative AI startups"].
+
+I\'d love to hear more about how ExampleCorp is making AI accessible to everyone. Perhaps we could connect for a quick chat sometime next week?
+
+Best regards,
+
+[Your Name]
+'
+[2025-07-25 19:07:26,381: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[f8581e7c-6d0d-438e-a0ac-21f3c25750d3] received
+[2025-07-25 19:07:30,743: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.e0b19189-564d-40b0-b151-10541066ad68 "HTTP/1.1 200 OK"
+[2025-07-25 19:07:30,809: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[f8581e7c-6d0d-438e-a0ac-21f3c25750d3] succeeded in 4.426049499999976s: 'Subject: Streamlining Collaboration - From a Fellow Slack & Asana Alum
+
+Hi Sarah,
+
+I was really impressed by CollabFlow\'s pitch deck, especially the focus on using AI to address those all-too-familiar collaboration bottlenecks.  Having spent time at both Slack and Asana myself (albeit a few years earlier), I know firsthand how challenging – and important – effective team communication can be.  The 20+ hours wasted per week statistic really resonated!
+
+I\'d love to connect and learn more about how CollabFlow is tackling this challenge, particularly the AI-powered meeting insights.  Are you available for a quick chat sometime next week?
+
+Best regards,
+
+[Your Name]
+[Your Title/Company]
+'
+[2025-07-25 19:13:06,691: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[459d79a8-8180-4cab-98cc-3df9336796f5] received
+[2025-07-25 19:13:12,850: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.c36db6a0-b914-49ab-9be8-46815f027d6a "HTTP/1.1 200 OK"
+[2025-07-25 19:13:12,918: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[459d79a8-8180-4cab-98cc-3df9336796f5] succeeded in 6.225635667000006s: 'Subject:  200% More Top - Intrigued!
+
+Hi Vinay,
+
+I came across TopCorp on LinkedIn and the "200% more Top" on your pitch deck immediately caught my eye.  I\'m curious - what exactly *is* "Top" in this context?  Hoping it\'s something as awesome as it sounds!
+
+Best,
+
+[Your Name]
+
+
+This icebreaker does the following:
+
+* **Uses a compelling subject line:**  It uses a phrase directly from the pitch deck to grab attention and pique curiosity.
+* **References the LinkedIn and pitch deck:** This shows you\'ve done your homework and aren\'t sending a generic message.
+* **Focuses on a specific detail:**  It hones in on the "200% more Top" claim, which is likely a key selling point.
+* **Injects humor:**  It playfully acknowledges the ambiguity of "Top" while expressing genuine interest.
+* **Keeps it concise and professional:** The tone is friendly but respectful and avoids being overly casual or pushy.
+
+
+Given the placeholder nature of the bio and pitch deck, this icebreaker is designed to be adaptable.  Once you know what...'
+[2025-07-25 19:20:56,143: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[b7a189f8-5dec-4861-a569-7a66d964bf6d] received
+[2025-07-25 19:21:01,855: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.808bf40c-9d75-41d5-b022-3b580466c791 "HTTP/1.1 200 OK"
+[2025-07-25 19:21:01,924: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[b7a189f8-5dec-4861-a569-7a66d964bf6d] succeeded in 5.779544041999998s: 'Subject: Streamlining Collaboration -  A Fellow Product Leader\'s Perspective
+
+Hi Sarah,
+
+I was really impressed by your background at Slack and Asana, and your achievements at TechCorp – growing a user base from 0 to 50,000+ is no small feat!  I\'m [Your Name], and I\'m reaching out because I\'m working on a similar mission with [Your Company/Product Name], helping teams collaborate more effectively.
+
+I saw your pitch deck for CollabFlow, and the AI-powered insights into collaboration bottlenecks really resonated with me. At [Your Company/Product Name], we\'re tackling [briefly mention your product\'s unique angle/focus on collaboration - e.g., asynchronous communication, project visualization, etc.], and I\'d love to connect and share our experiences in this space.  Perhaps we could even compare notes on navigating the ever-evolving world of team collaboration tools.
+
+Would you be open to a quick chat sometime next week?
+
+Best regards,
+
+[Your Name]
+[Your Title/Company]
+[Your LinkedIn Profile URL (optional)] 
+'
+[2025-07-25 19:24:34,778: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[23534f46-ffea-48b0-ad2c-cb722f5363b8] received
+[2025-07-25 19:24:39,196: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.3b12921a-9872-4a2e-b890-fdb10cb308e7 "HTTP/1.1 200 OK"
+[2025-07-25 19:24:39,259: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[23534f46-ffea-48b0-ad2c-cb722f5363b8] succeeded in 4.47941591599988s: 'Subject: Streamlining Collaboration - A Fellow Product Leader\'s Perspective
+
+Hi Sarah,
+
+I was really impressed by your background at Slack and Asana, and your achievements at TechCorp – scaling a user base from 0 to 50,000+ is no small feat!  Having seen your pitch deck for CollabFlow, I was particularly struck by the focus on AI-powered insights to combat collaboration bottlenecks.  At [Your Company], we\'re tackling a similar challenge in the [Your Industry] space, albeit from a slightly different angle by [briefly explain your company\'s approach to collaboration/productivity, one sentence].
+
+I\'d love to connect sometime and exchange notes on the evolving landscape of team collaboration tools.  Perhaps we could share some learnings about what\'s working well (and not so well) in our respective markets?
+
+Best,
+
+[Your Name]
+[Your Title]
+[Your Company]
+'
+[2025-07-25 19:30:58,947: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[5ff805f9-3db6-4018-a0a7-e9635b77561a] received
+[2025-07-25 19:31:04,059: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.759de283-237a-4ba0-894b-4d3a0455d05d "HTTP/1.1 200 OK"
+[2025-07-25 19:31:04,125: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[5ff805f9-3db6-4018-a0a7-e9635b77561a] succeeded in 5.177223124999728s: 'Subject: From Slack to Streamlining Collaboration - Connecting with Sarah Johnson
+
+Hi Sarah,
+
+I was really impressed by your background at Slack and Asana, especially your work scaling products and improving user onboarding – something we\'re actively focused on at [Your Company/Fund Name].  Your experience at those companies aligns perfectly with CollabFlow\'s mission, as outlined in your pitch deck.  The AI-powered insights into collaboration bottlenecks seem particularly compelling given the stats you highlighted on wasted time and project failures.
+
+I\'d love to connect and learn more about your vision for CollabFlow.  Perhaps we could even share some insights on best practices for scaling SaaS platforms in the collaboration space?
+
+Best,
+
+[Your Name]
+[Your Title]
+[Your Company/Fund Name] 
+[Your LinkedIn Profile URL (Optional)]
+'
+[2025-07-25 19:33:38,086: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[307f418a-bb43-487a-a805-5a2219801cdf] received
+[2025-07-25 19:33:42,659: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.b141a5ec-f3c3-4253-a892-e4aeed1192b1 "HTTP/1.1 200 OK"
+[2025-07-25 19:33:42,726: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[307f418a-bb43-487a-a805-5a2219801cdf] succeeded in 4.638059082999916s: 'Subject: Streamlining Collaboration - Inspired by Your Work at Slack & Asana
+
+Hi Sarah,
+
+I was really impressed by your background at Slack and Asana, especially your focus on improving user onboarding and reducing churn – those are areas we’re deeply passionate about at [Your Company/Fund Name].  Your experience building and scaling SaaS products, particularly in the collaboration space, resonated with me given CollabFlow\'s focus on AI-driven team productivity.  I noticed you led the launch of TechCorp\'s platform and achieved impressive user growth – I\'d love to hear your thoughts on leveraging AI for similar growth trajectories.
+
+Would you be open to a quick chat sometime next week?
+
+Best regards,
+
+[Your Name]
+[Your Title]
+[Your Company/Fund Name]
+'
+[2025-07-25 19:41:56,535: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[7a4ec614-8db8-4af0-bdc6-0ac89605d1ec] received
+[2025-07-25 19:42:04,940: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.866c56a8-1e32-4846-b1cc-0b0e5ea7501c "HTTP/1.1 200 OK"
+[2025-07-25 19:42:05,008: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[7a4ec614-8db8-4af0-bdc6-0ac89605d1ec] succeeded in 8.471903875000407s: 'Subject: Streamlining Collaboration at [Investor\'s Company Name]?
+
+Hi Sarah,
+
+I was really impressed by CollabFlow\'s pitch deck – hitting a $25M pre-money valuation is no small feat, and the focus on the future of team collaboration particularly resonated with me, especially considering [Investor\'s Company Name]\'s recent initiatives in [mention something specific and relevant to the investor\'s company and their collaboration efforts, e.g., remote work, cross-functional team projects, or a specific tool they use].  I\'d love to learn more about how CollabFlow could potentially enhance similar workflows.  Would you be open to a quick chat next week?
+
+Best regards,
+
+[Your Name]
+
+
+**Alternative Icebreaker (if you have a mutual connection):**
+
+Subject:  CollabFlow & [Investor\'s Company Name] - Intro from [Mutual Connection\'s Name]
+
+Hi Sarah,
+
+[Mutual Connection\'s Name] suggested I reach out. I\'m [Your Name] from [Your Company], and I was particularly struck by CollabFlow\'s innovative approach to team...'
+[2025-07-25 19:43:51,680: INFO/MainProcess] Task analyze_linkedin_icebreaker_task[592ba261-32b1-4917-bad0-aa50b30db561] received
+[2025-07-25 19:43:56,884: INFO/ForkPoolWorker-8] HTTP Request: PATCH https://zeoroaxsgtzobscatlgv.supabase.co/rest/v1/linkedin_icebreakers?id=eq.5c7481b2-36ae-47ce-8041-cce000a6acd5 "HTTP/1.1 200 OK"
+[2025-07-25 19:43:56,952: INFO/ForkPoolWorker-8] Task analyze_linkedin_icebreaker_task[592ba261-32b1-4917-bad0-aa50b30db561] succeeded in 5.2701726670002245s: 'Subject: Streamlining Collaboration - A Shared Passion
+
+Hi Johnson,
+
+I came across your profile on LinkedIn and was particularly drawn to your experience scaling SaaS products at both Slack and Asana, especially given CollabFlow\'s focus on optimizing team collaboration.  I noticed your impressive achievement of growing TechCorp\'s user base to 50,000+ – that kind of growth in 18 months is remarkable.
+
+Given your background and the compelling traction CollabFlow is already demonstrating (2,000+ users and $500k ARR – congrats!), I was curious about your perspective on the biggest hurdles companies face in adopting new collaboration tools.  I\'ve been [briefly explain your relevant role/company/area of expertise, e.g., working with mid-market companies on their tech stack / investing in B2B SaaS /  advising startups in the collaboration space].
+
+Would you be open to a brief chat sometime next week?
+
+Best regards,
+
+[Your Name]
+'
+
+worker: Warm shutdown (MainProcess)

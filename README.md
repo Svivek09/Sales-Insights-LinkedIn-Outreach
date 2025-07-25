@@ -156,6 +156,51 @@ The application will be available at:
 - `GET /linkedin-icebreakers` - Get all LinkedIn icebreakers
 - `GET /linkedin-icebreakers/{id}` - Get a specific LinkedIn icebreaker
 
+## Background Job Queue for Long-Running AI Tasks
+
+To offload heavy prompt-processing tasks from the main request cycle, improve reliability, and enable retries on failure, the backend now uses **Celery + Redis** for background job processing.
+
+### How it Works
+- When you submit a transcript for analysis, the API enqueues the job and returns a `job_id` and `transcript_id`.
+- You can poll the `/transcripts/job/{job_id}` endpoint to check the status and get the result.
+- This prevents timeouts and allows for scalable, reliable processing of long-running AI tasks.
+
+### Setup Instructions (Queue)
+
+1. **Install Redis** (locally or use a hosted Redis like Upstash):
+   - Local: https://redis.io/docs/getting-started/installation/
+   - Hosted: https://upstash.com/
+
+2. **Start Redis locally** (if using local):
+   ```bash
+   redis-server
+   ```
+
+3. **Set the Redis URL** in `backend/.env`:
+   ```env
+   REDIS_URL=redis://localhost:6379/0
+   # or your Upstash/hosted Redis URL
+   ```
+
+4. **Start the Celery worker** (in a new terminal):
+   ```bash
+   cd backend
+   celery -A main.celery_app worker --loglevel=info
+   ```
+
+5. **Start the FastAPI server** as usual:
+   ```bash
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+### API Changes
+- `POST /transcripts` now returns `{ "job_id": ..., "transcript_id": ... }` immediately.
+- `GET /transcripts/job/{job_id}` returns job status and result.
+- `POST /linkedin-icebreakers` now returns `{ "job_id": ..., "icebreaker_id": ... }` immediately.
+- `GET /linkedin-icebreakers/job/{job_id}` returns job status and result.
+
+---
+
 ## Project Structure
 
 ```
